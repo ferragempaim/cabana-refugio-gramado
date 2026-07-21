@@ -32,10 +32,28 @@ export default function Galeria() {
         >
           Cada ambiente com vista
         </motion.h2>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7, delay: 0.15 }}
+          className="mt-4 text-sm text-muted"
+        >
+          Arraste para o lado ou use as setas
+        </motion.p>
       </div>
 
-      {/* Leque de cartas */}
-      <div className="relative mx-auto mt-16 flex h-[62vh] max-h-[560px] w-full max-w-5xl items-center justify-center">
+      {/* Leque de cartas — arrastável pro lado, além dos botões */}
+      <motion.div
+        drag="x"
+        dragConstraints={{ left: 0, right: 0 }}
+        dragElastic={0.16}
+        onDragEnd={(_, info) => {
+          if (info.offset.x < -60) ir(1);
+          else if (info.offset.x > 60) ir(-1);
+        }}
+        className="relative mx-auto mt-16 flex h-[62vh] max-h-[560px] w-full max-w-5xl cursor-grab touch-pan-y items-center justify-center active:cursor-grabbing"
+      >
         {galeria.map((foto, i) => {
           // deslocamento relativo ao card ativo (com wrap circular)
           let offset = i - ativo;
@@ -77,7 +95,7 @@ export default function Galeria() {
             </motion.button>
           );
         })}
-      </div>
+      </motion.div>
 
       {/* Controles */}
       <div className="mt-10 flex items-center justify-center gap-6 pb-4">

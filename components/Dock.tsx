@@ -9,6 +9,7 @@ const links = [
   { label: "A Cabana", href: "#cabana" },
   { label: "Galeria", href: "#galeria" },
   { label: "Vista", href: "#vista" },
+  { label: "Onde fica", href: "#localizacao" },
   { label: "Avaliações", href: "#avaliacoes" },
 ];
 
