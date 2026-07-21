@@ -4,6 +4,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { site } from "@/lib/site";
+import { asset } from "@/lib/asset";
 import ReserveButton from "./ReserveButton";
 
 export default function Hero() {
@@ -25,7 +26,7 @@ export default function Hero() {
     <section id="topo" ref={ref} className="relative h-[100svh] w-full overflow-hidden">
       <motion.div style={{ scale, filter }} className="absolute inset-0">
         <Image
-          src="/images/exterior.png"
+          src={asset("/images/exterior.png")}
           alt="Cabana Miragem sobre o vale em Gramado"
           fill
           priority

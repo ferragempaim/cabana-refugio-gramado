@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import "leaflet/dist/leaflet.css";
 import { site } from "@/lib/site";
+import { asset } from "@/lib/asset";
 import ReserveButton from "./ReserveButton";
 
 // Localização aproximada — o endereço exato é liberado pelo Airbnb após a reserva.
@@ -128,7 +129,7 @@ export default function Mapa() {
             >
               <div className="relative h-40 w-full">
                 <Image
-                  src="/images/exterior.png"
+                  src={asset("/images/exterior.png")}
                   alt="Cabana Miragem"
                   fill
                   sizes="384px"

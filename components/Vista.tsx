@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { asset } from "@/lib/asset";
 
 export default function Vista() {
   const ref = useRef<HTMLDivElement>(null);
@@ -16,7 +17,7 @@ export default function Vista() {
     <section id="vista" ref={ref} className="relative z-10 h-[90vh] w-full overflow-hidden">
       <motion.div style={{ y }} className="absolute inset-0 h-[125%]">
         <Image
-          src="/images/vista.png"
+          src={asset("/images/vista.png")}
           alt="Vista do vale e do morro a partir da Cabana Miragem"
           fill
           sizes="100vw"

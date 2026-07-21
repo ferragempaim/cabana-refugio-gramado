@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { galeria } from "@/lib/site";
+import { asset } from "@/lib/asset";
 
 export default function Galeria() {
   const [ativo, setAtivo] = useState(0);
@@ -79,7 +80,7 @@ export default function Galeria() {
               style={{ pointerEvents: visivel ? "auto" : "none" }}
             >
               <Image
-                src={foto.src}
+                src={asset(foto.src)}
                 alt={foto.alt}
                 fill
                 sizes="(max-width: 768px) 76vw, 52vw"

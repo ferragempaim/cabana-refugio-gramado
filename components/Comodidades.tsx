@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { comodidades } from "@/lib/site";
+import { asset } from "@/lib/asset";
 
 type Dir = "top" | "bottom" | "left" | "right";
 
@@ -49,7 +50,7 @@ function CardComodidade({
       className="group relative aspect-[4/5] overflow-hidden rounded-2xl border border-linha"
     >
       <Image
-        src={item.img}
+        src={asset(item.img)}
         alt={item.nome}
         fill
         sizes="(max-width: 768px) 50vw, 33vw"
