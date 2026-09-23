@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Cabana Miragem com cinco estrelas</title>
+  <rect width="64" height="64" rx="16" fill="#14100c"/>
+
+  <!-- Cinco estrelas: referência à nota máxima no Airbnb. -->
+  <g fill="#e6a860" transform="translate(7 5)">
+    <path d="m5 0 1.35 2.74 3.02.44-2.18 2.13.51 3.01L5 6.9 2.3 8.32l.51-3.01L.63 3.18l3.02-.44z"/>
+    <path d="m15.5 0 1.35 2.74 3.02.44-2.18 2.13.51 3.01-2.7-1.42-2.7 1.42.51-3.01-2.18-2.13 3.02-.44z"/>
+    <path d="m26 0 1.35 2.74 3.02.44-2.18 2.13.51 3.01L26 6.9l-2.7 1.42.51-3.01-2.18-2.13 3.02-.44z"/>
+    <path d="m36.5 0 1.35 2.74 3.02.44-2.18 2.13.51 3.01-2.7-1.42-2.7 1.42.51-3.01-2.18-2.13 3.02-.44z"/>
+    <path d="m47 0 1.35 2.74 3.02.44-2.18 2.13.51 3.01L47 6.9l-2.7 1.42.51-3.01-2.18-2.13 3.02-.44z"/>
+  </g>
+
+  <!-- Silhueta simples da cabana. -->
+  <path d="M9 34 32 17l23 17v20H9z" fill="#6f3c24" stroke="#e6a860" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M5 35 32 14l27 21-3.3 4L32 20 8.3 39z" fill="#b5632e" stroke="#e6a860" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M27 54V39h10v15" fill="#14100c" stroke="#e6a860" stroke-width="2"/>
+  <path d="M14 39h8v8h-8zM42 39h8v8h-8z" fill="#e6a860"/>
+</svg>
