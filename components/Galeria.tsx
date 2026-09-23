@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { galeria } from "@/lib/site";
@@ -8,9 +8,70 @@ import { asset } from "@/lib/asset";
 
 export default function Galeria() {
   const [ativo, setAtivo] = useState(0);
+  const gestoRef = useRef<{
+    pointerId: number;
+    startX: number;
+    startY: number;
+    arrastou: boolean;
+  } | null>(null);
+  const bloquearCliqueRef = useRef(false);
   const total = galeria.length;
 
   const ir = (dir: number) => setAtivo((a) => (a + dir + total) % total);
+
+  const iniciarGesto = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+
+    gestoRef.current = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      arrastou: false,
+    };
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+
+  const moverGesto = (event: React.PointerEvent<HTMLDivElement>) => {
+    const gesto = gestoRef.current;
+    if (!gesto || gesto.pointerId !== event.pointerId) return;
+
+    const deslocamentoX = event.clientX - gesto.startX;
+    const deslocamentoY = event.clientY - gesto.startY;
+    const movimentoHorizontal =
+      Math.abs(deslocamentoX) > 8 && Math.abs(deslocamentoX) > Math.abs(deslocamentoY);
+
+    if (movimentoHorizontal) {
+      gesto.arrastou = true;
+      event.preventDefault();
+    }
+  };
+
+  const finalizarGesto = (event: React.PointerEvent<HTMLDivElement>) => {
+    const gesto = gestoRef.current;
+    if (!gesto || gesto.pointerId !== event.pointerId) return;
+
+    const deslocamentoX = event.clientX - gesto.startX;
+    if (gesto.arrastou) {
+      if (Math.abs(deslocamentoX) > 42) ir(deslocamentoX < 0 ? 1 : -1);
+
+      bloquearCliqueRef.current = true;
+      window.setTimeout(() => {
+        bloquearCliqueRef.current = false;
+      }, 0);
+    }
+
+    gestoRef.current = null;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+  };
+
+  const cancelarGesto = (event: React.PointerEvent<HTMLDivElement>) => {
+    gestoRef.current = null;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+  };
 
   return (
     <section id="galeria" className="relative z-10 overflow-hidden py-28 md:py-36">
@@ -46,14 +107,11 @@ export default function Galeria() {
 
       {/* Leque de cartas — arrastável pro lado, além dos botões */}
       <motion.div
-        drag="x"
-        dragConstraints={{ left: 0, right: 0 }}
-        dragElastic={0.16}
-        onDragEnd={(_, info) => {
-          if (info.offset.x < -60) ir(1);
-          else if (info.offset.x > 60) ir(-1);
-        }}
-        className="relative mx-auto mt-16 flex h-[62vh] max-h-[560px] w-full max-w-5xl cursor-grab touch-pan-y items-center justify-center active:cursor-grabbing"
+        onPointerDown={iniciarGesto}
+        onPointerMove={moverGesto}
+        onPointerUp={finalizarGesto}
+        onPointerCancel={cancelarGesto}
+        className="relative mx-auto mt-16 flex h-[62vh] max-h-[560px] w-full max-w-5xl cursor-grab touch-pan-y select-none items-center justify-center active:cursor-grabbing"
       >
         {galeria.map((foto, i) => {
           // deslocamento relativo ao card ativo (com wrap circular)
@@ -66,7 +124,16 @@ export default function Galeria() {
           return (
             <motion.button
               key={foto.src}
-              onClick={() => setAtivo(i)}
+              onDragStart={(event) => event.preventDefault()}
+              onClick={(event) => {
+                if (bloquearCliqueRef.current) {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  bloquearCliqueRef.current = false;
+                  return;
+                }
+                setAtivo(i);
+              }}
               animate={{
                 x: offset * 62,
                 rotate: offset * 7,
@@ -83,8 +150,10 @@ export default function Galeria() {
                 src={asset(foto.src)}
                 alt={foto.alt}
                 fill
+                draggable={false}
                 sizes="(max-width: 768px) 76vw, 52vw"
-                className="object-cover"
+                className="pointer-events-none object-cover"
+                style={{ transform: `scale(${foto.zoom ?? 1})` }}
               />
               {offset === 0 && (
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-6 text-left">

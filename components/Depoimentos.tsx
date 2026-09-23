@@ -1,7 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { site, depoimentos } from "@/lib/site";
+import { asset } from "@/lib/asset";
 
 export default function Depoimentos() {
   return (
@@ -37,22 +39,44 @@ export default function Depoimentos() {
 
       <div className="columns-1 gap-5 md:columns-2 lg:columns-3">
         {depoimentos.map((d, i) => (
-          <motion.figure
-            key={d.nome}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.5, delay: (i % 3) * 0.08 }}
-            className="mb-5 break-inside-avoid rounded-2xl border border-linha bg-surface/50 p-6"
-          >
-            <blockquote className="text-foreground/90">"{d.texto}"</blockquote>
-            <figcaption className="mt-4 flex items-center gap-3">
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-terracota/30 font-serif text-amber-claro">
-                {d.nome.slice(0, 1)}
-              </span>
-              <span className="text-sm font-medium text-muted">{d.nome}</span>
-            </figcaption>
-          </motion.figure>
+          <div key={d.nome} className="break-inside-avoid">
+            <motion.figure
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5, delay: (i % 3) * 0.08 }}
+              className="mb-5 rounded-2xl border border-linha bg-surface/50 p-6"
+            >
+              <blockquote className="text-foreground/90">"{d.texto}"</blockquote>
+              <figcaption className="mt-4 flex items-center gap-3">
+                {d.avatar ? (
+                  <Image
+                    src={asset(d.avatar)}
+                    alt={`Foto de ${d.nome}`}
+                    width={36}
+                    height={36}
+                    className="h-9 w-9 rounded-full object-cover"
+                  />
+                ) : (
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-terracota/30 font-serif text-amber-claro">
+                    {d.nome.slice(0, 1)}
+                  </span>
+                )}
+                <span className="text-sm font-medium text-muted">{d.nome}</span>
+              </figcaption>
+            </motion.figure>
+
+            {d.nome === "Chaves" && (
+              <a
+                href={site.airbnbAvaliacoes}
+                target="_blank"
+                rel="noreferrer"
+                className="mb-5 inline-flex min-h-11 w-full items-center justify-center rounded-full border border-amber/60 px-5 py-3 text-center text-sm font-medium text-amber-claro transition-colors hover:border-amber hover:bg-amber/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              >
+                Ver todas as avaliações no Airbnb
+              </a>
+            )}
+          </div>
         ))}
       </div>
     </section>

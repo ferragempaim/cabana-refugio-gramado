@@ -38,6 +38,95 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Mantém o interior e a vista no recorte da Hero em cada proporção. */
+.hero-image {
+  object-position: 50% 40%;
+}
+
+.hero-copy {
+  isolation: isolate;
+}
+
+.hero-copy::before {
+  position: absolute;
+  inset: 24% 10% 23%;
+  z-index: -1;
+  content: "";
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0.22) 48%,
+    transparent 78%
+  );
+  filter: blur(28px);
+}
+
+.hero-copy h1,
+.hero-copy p {
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.7);
+}
+
+@media (max-width: 767px) {
+  .hero-image {
+    object-position: 50% 46%;
+  }
+
+  .hero-copy::before {
+    inset: 27% -4% 24%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero-image {
+    object-position: 50% 42%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-image {
+    object-position: 50% 38%;
+  }
+}
+
+.vista-image {
+  object-position: 50% 60%;
+}
+
+.vista-copy {
+  isolation: isolate;
+}
+
+.vista-copy::before {
+  position: absolute;
+  inset: 25% 8% 23%;
+  z-index: -1;
+  content: "";
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(20, 16, 12, 0.76) 0%,
+    rgba(20, 16, 12, 0.42) 50%,
+    transparent 82%
+  );
+  filter: blur(24px);
+}
+
+.vista-copy h2,
+.vista-copy p {
+  text-shadow: 0 2px 28px rgba(0, 0, 0, 0.88);
+}
+
+@media (max-width: 767px) {
+  .vista-image {
+    object-position: 50% 50%;
+  }
+
+  .vista-copy::before {
+    inset: 27% -4% 24%;
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }

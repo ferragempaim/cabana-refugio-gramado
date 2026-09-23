@@ -46,6 +46,15 @@ export default function Footer() {
       <div className="mx-auto mt-12 max-w-6xl border-t border-linha pt-6 text-center text-xs text-muted/60">
         © {new Date().getFullYear()} Cabanas Refúgio de Gramado. Todos os
         direitos reservados.
+        <span className="mx-2 text-muted/30">·</span>
+        <a
+          href="https://paimtech.vercel.app"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="transition-colors hover:text-amber-claro"
+        >
+          Desenvolvido por Paim Tech
+        </a>
       </div>
     </footer>
   );

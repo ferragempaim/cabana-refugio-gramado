@@ -10,7 +10,7 @@ export default function CTA() {
     <section className="relative z-10 mx-auto max-w-5xl px-6 pb-32 pt-8">
       <div className="relative overflow-hidden rounded-[2rem] border border-linha">
         <Image
-          src={asset("/images/jacuzzi-vista.png")}
+          src={asset("/images/jacuzzi-vista.jpg")}
           alt="Jacuzzi com vista para o vale ao entardecer"
           fill
           sizes="(max-width: 768px) 100vw, 1024px"

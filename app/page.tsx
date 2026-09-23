@@ -1,4 +1,5 @@
 import Dock from "@/components/Dock";
+import MusicaAmbiente from "@/components/MusicaAmbiente";
 import Hero from "@/components/Hero";
 import Sobre from "@/components/Sobre";
 import Galeria from "@/components/Galeria";
@@ -13,6 +14,7 @@ export default function Home() {
   return (
     <>
       <Dock />
+      <MusicaAmbiente />
       <main>
         <Hero />
         <Sobre />

@@ -17,16 +17,16 @@ export default function Vista() {
     <section id="vista" ref={ref} className="relative z-10 h-[90vh] w-full overflow-hidden">
       <motion.div style={{ y }} className="absolute inset-0 h-[125%]">
         <Image
-          src={asset("/images/vista.png")}
-          alt="Vista do vale e do morro a partir da Cabana Miragem"
+          src={asset("/images/vale-silencio-9725.jpg")}
+          alt="Vista verde do vale e das montanhas ao redor da Cabana Miragem"
           fill
           sizes="100vw"
-          className="object-cover"
+          className="vista-image object-cover"
         />
       </motion.div>
-      <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-transparent to-background" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/65 via-background/15 to-background/85" />
 
-      <div className="relative z-10 flex h-full items-center justify-center px-6 text-center">
+      <div className="vista-copy relative z-10 flex h-full items-center justify-center px-6 text-center">
         <div>
           <motion.h2
             initial={{ opacity: 0, y: 24 }}

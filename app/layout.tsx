@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     title: "Cabana Miragem — Refúgio romântico em Gramado",
     description:
       "Jacuzzi aquecida, lareira e vista para o vale. A 10 minutos do centro de Gramado.",
-    images: ["/images/exterior.png"],
+    images: ["/images/hero-interior-vista.jpg"],
     type: "website",
   },
 };

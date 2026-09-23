@@ -9,8 +9,9 @@ import { asset } from "@/lib/asset";
 import ReserveButton from "./ReserveButton";
 
 // Localização aproximada — o endereço exato é liberado pelo Airbnb após a reserva.
-// Região sudeste de Gramado, perto do GramadoZoo e do Parque Gaúcho.
-const POS: [number, number] = [-29.4105, -50.848];
+// Região de Várzea Grande, em Gramado.
+// O ponto é aproximado no site; o endereço exato é liberado após a reserva.
+const POS: [number, number] = [-29.43196, -50.86438];
 
 // Pontos turísticos da região (posições aproximadas) pra mostrar o que há por perto.
 const pontos: { nome: string; tempo: string; pos: [number, number] }[] = [
@@ -35,18 +36,18 @@ export default function Mapa() {
 
       map = L.map(containerRef.current, {
         center: POS,
-        zoom: 14,
+        zoom: 13,
         zoomControl: false,
         scrollWheelZoom: false,
       });
 
-      // Voyager: mapa claro com os pontos turísticos da região visíveis (igual o Airbnb).
+      // OpenStreetMap: mapa claro sem depender de chave externa.
       L.tileLayer(
-        "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
         {
           maxZoom: 19,
           attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         }
       ).addTo(map);
 
@@ -88,9 +89,9 @@ export default function Mapa() {
 
       L.control.zoom({ position: "bottomright" }).addTo(map);
 
-      // Enquadra a cabana e todos os pontos turísticos.
-      const bounds = L.latLngBounds([POS, ...pontos.map((p) => p.pos)]);
-      map.fitBounds(bounds, { padding: [60, 60] });
+      // Mantém a cabana como ponto focal; os demais locais ficam como contexto
+      // para quem quiser explorar o mapa manualmente.
+      map.setView(POS, 13);
     })();
 
     return () => {

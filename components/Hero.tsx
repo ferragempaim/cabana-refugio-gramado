@@ -18,7 +18,7 @@ export default function Hero() {
   const blur = useTransform(scrollYProgress, [0, 1], [0, 16]);
   const filter = useTransform(blur, (b) => `blur(${b}px)`);
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
-  const overlay = useTransform(scrollYProgress, [0, 1], [0.45, 0.85]);
+  const overlay = useTransform(scrollYProgress, [0, 1], [0.52, 0.9]);
   const contentY = useTransform(scrollYProgress, [0, 1], [0, -80]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
@@ -26,12 +26,12 @@ export default function Hero() {
     <section id="topo" ref={ref} className="relative h-[100svh] w-full overflow-hidden">
       <motion.div style={{ scale, filter }} className="absolute inset-0">
         <Image
-          src={asset("/images/exterior.png")}
-          alt="Cabana Miragem sobre o vale em Gramado"
+          src={asset("/images/hero-interior-vista.jpg")}
+          alt="Interior da Cabana Miragem com vista para o vale em Gramado"
           fill
           priority
           sizes="100vw"
-          className="object-cover"
+          className="hero-image object-cover"
         />
       </motion.div>
 
@@ -42,15 +42,18 @@ export default function Hero() {
 
       <motion.div
         style={{ y: contentY, opacity: contentOpacity }}
-        className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center"
+        className="hero-copy relative z-10 flex h-full flex-col items-center justify-center px-6 text-center"
       >
         <motion.span
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="mb-6 flex items-center gap-2 rounded-full border border-white/20 bg-black/20 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-white/90 backdrop-blur-sm"
+          className="mb-6 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 rounded-full border border-white/20 bg-black/20 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-white/90 backdrop-blur-sm"
         >
-          <span className="text-amber-claro">★ {site.avaliacao.nota}</span>
+          <span className="flex shrink-0 items-center gap-1 whitespace-nowrap text-amber-claro">
+            <span aria-hidden="true">★</span>
+            <span>{site.avaliacao.nota}</span>
+          </span>
           {site.avaliacao.selo} · Airbnb
         </motion.span>
 
